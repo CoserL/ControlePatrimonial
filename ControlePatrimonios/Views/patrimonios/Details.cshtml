@@ -1,0 +1,42 @@
+﻿@model ControlePatrimonios.patrimonio
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Patrimônios</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Número do patrimônio")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numPatrimonio)
+        </dd>
+
+        <dt>
+            @Html.Label("Bem")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ben.descBem)
+        </dd>
+
+        <dt>
+            @Html.Label("Sala")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sala.descSala)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.idPatrimonio, idBem = Model.idBem, idSala = Model.idSala}) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

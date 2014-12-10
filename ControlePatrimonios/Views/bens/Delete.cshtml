@@ -1,0 +1,40 @@
+﻿@model ControlePatrimonios.ben
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Deletar</h2>
+
+<h3>Deseja remover este item?</h3>
+<div>
+    <h4>Bens</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Descrição")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descBem)
+        </dd>
+
+        <dt>
+            @Html.Label("Categoria")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoria.descCategoria)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
+</div>

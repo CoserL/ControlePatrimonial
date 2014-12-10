@@ -1,0 +1,26 @@
+﻿@model ControlePatrimonios.categoria
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Categorias</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Categoria")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descCategoria)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.idCategoria }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

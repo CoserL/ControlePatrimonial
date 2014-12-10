@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eaab25c2663142309284c26d557d8d94" Name="Diagram1">
+        <EntityTypeShape EntityType="controle_patrimonialModel.ben" Width="1.5" PointX="5.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="controle_patrimonialModel.categoria" Width="1.5" PointX="2.375" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="controle_patrimonialModel.patrimonio" Width="1.5" PointX="5.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="controle_patrimonialModel.predio" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="controle_patrimonialModel.sala" Width="1.5" PointX="2.75" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="controle_patrimonialModel.fk_Bens_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="controle_patrimonialModel.fk_Patrimonios_Bens1" ManuallyRouted="false" />
+        <AssociationConnector Association="controle_patrimonialModel.fk_Patrimonios_Salas1" ManuallyRouted="false" />
+        <AssociationConnector Association="controle_patrimonialModel.fk_Salas_Predios1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

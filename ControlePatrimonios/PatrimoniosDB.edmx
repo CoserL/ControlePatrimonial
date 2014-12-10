@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="controle_patrimonialModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bens">
+          <Key>
+            <PropertyRef Name="idBem" />
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idBem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descBem" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="idCategoria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categorias">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descCategoria" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="patrimonios">
+          <Key>
+            <PropertyRef Name="idPatrimonio" />
+            <PropertyRef Name="idBem" />
+            <PropertyRef Name="idCategoria" />
+            <PropertyRef Name="idSala" />
+            <PropertyRef Name="idPredio" />
+          </Key>
+          <Property Name="idPatrimonio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numPatrimonio" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="idBem" Type="int" Nullable="false" />
+          <Property Name="idCategoria" Type="int" Nullable="false" />
+          <Property Name="idSala" Type="int" Nullable="false" />
+          <Property Name="idPredio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="predios">
+          <Key>
+            <PropertyRef Name="idPredio" />
+          </Key>
+          <Property Name="idPredio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descPredio" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="salas">
+          <Key>
+            <PropertyRef Name="idSala" />
+            <PropertyRef Name="idPredio" />
+          </Key>
+          <Property Name="idSala" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descSala" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="idPredio" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Bens_Categorias">
+          <End Role="categorias" Type="Self.categorias" Multiplicity="1" />
+          <End Role="bens" Type="Self.bens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="bens">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Patrimonios_Bens1">
+          <End Role="bens" Type="Self.bens" Multiplicity="1" />
+          <End Role="patrimonios" Type="Self.patrimonios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bens">
+              <PropertyRef Name="idBem" />
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="patrimonios">
+              <PropertyRef Name="idBem" />
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Patrimonios_Salas1">
+          <End Role="salas" Type="Self.salas" Multiplicity="1" />
+          <End Role="patrimonios" Type="Self.patrimonios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salas">
+              <PropertyRef Name="idSala" />
+              <PropertyRef Name="idPredio" />
+            </Principal>
+            <Dependent Role="patrimonios">
+              <PropertyRef Name="idSala" />
+              <PropertyRef Name="idPredio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Salas_Predios1">
+          <End Role="predios" Type="Self.predios" Multiplicity="1" />
+          <End Role="salas" Type="Self.salas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="predios">
+              <PropertyRef Name="idPredio" />
+            </Principal>
+            <Dependent Role="salas">
+              <PropertyRef Name="idPredio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="controle_patrimonialModelStoreContainer">
+          <EntitySet Name="bens" EntityType="Self.bens" Schema="controle_patrimonial" store:Type="Tables" />
+          <EntitySet Name="categorias" EntityType="Self.categorias" Schema="controle_patrimonial" store:Type="Tables" />
+          <EntitySet Name="patrimonios" EntityType="Self.patrimonios" Schema="controle_patrimonial" store:Type="Tables" />
+          <EntitySet Name="predios" EntityType="Self.predios" Schema="controle_patrimonial" store:Type="Tables" />
+          <EntitySet Name="salas" EntityType="Self.salas" Schema="controle_patrimonial" store:Type="Tables" />
+          <AssociationSet Name="fk_Bens_Categorias" Association="Self.fk_Bens_Categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="bens" EntitySet="bens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Patrimonios_Bens1" Association="Self.fk_Patrimonios_Bens1">
+            <End Role="bens" EntitySet="bens" />
+            <End Role="patrimonios" EntitySet="patrimonios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Patrimonios_Salas1" Association="Self.fk_Patrimonios_Salas1">
+            <End Role="salas" EntitySet="salas" />
+            <End Role="patrimonios" EntitySet="patrimonios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Salas_Predios1" Association="Self.fk_Salas_Predios1">
+            <End Role="predios" EntitySet="predios" />
+            <End Role="salas" EntitySet="salas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="controle_patrimonialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ben">
+          <Key>
+            <PropertyRef Name="idBem" />
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idBem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descBem" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCategoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categoria" Relationship="Self.fk_Bens_Categorias" FromRole="bens" ToRole="categorias" />
+          <NavigationProperty Name="patrimonios" Relationship="Self.fk_Patrimonios_Bens1" FromRole="bens" ToRole="patrimonios" />
+        </EntityType>
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descCategoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="bens" Relationship="Self.fk_Bens_Categorias" FromRole="categorias" ToRole="bens" />
+        </EntityType>
+        <EntityType Name="patrimonio">
+          <Key>
+            <PropertyRef Name="idPatrimonio" />
+            <PropertyRef Name="idBem" />
+            <PropertyRef Name="idCategoria" />
+            <PropertyRef Name="idSala" />
+            <PropertyRef Name="idPredio" />
+          </Key>
+          <Property Name="idPatrimonio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numPatrimonio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idBem" Type="Int32" Nullable="false" />
+          <Property Name="idCategoria" Type="Int32" Nullable="false" />
+          <Property Name="idSala" Type="Int32" Nullable="false" />
+          <Property Name="idPredio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ben" Relationship="Self.fk_Patrimonios_Bens1" FromRole="patrimonios" ToRole="bens" />
+          <NavigationProperty Name="sala" Relationship="Self.fk_Patrimonios_Salas1" FromRole="patrimonios" ToRole="salas" />
+        </EntityType>
+        <EntityType Name="predio">
+          <Key>
+            <PropertyRef Name="idPredio" />
+          </Key>
+          <Property Name="idPredio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descPredio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="salas" Relationship="Self.fk_Salas_Predios1" FromRole="predios" ToRole="salas" />
+        </EntityType>
+        <EntityType Name="sala">
+          <Key>
+            <PropertyRef Name="idSala" />
+            <PropertyRef Name="idPredio" />
+          </Key>
+          <Property Name="idSala" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descSala" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPredio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="patrimonios" Relationship="Self.fk_Patrimonios_Salas1" FromRole="salas" ToRole="patrimonios" />
+          <NavigationProperty Name="predio" Relationship="Self.fk_Salas_Predios1" FromRole="salas" ToRole="predios" />
+        </EntityType>
+        <Association Name="fk_Bens_Categorias">
+          <End Role="categorias" Type="Self.categoria" Multiplicity="1" />
+          <End Role="bens" Type="Self.ben" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="bens">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Patrimonios_Bens1">
+          <End Role="bens" Type="Self.ben" Multiplicity="1" />
+          <End Role="patrimonios" Type="Self.patrimonio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bens">
+              <PropertyRef Name="idBem" />
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="patrimonios">
+              <PropertyRef Name="idBem" />
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Patrimonios_Salas1">
+          <End Role="salas" Type="Self.sala" Multiplicity="1" />
+          <End Role="patrimonios" Type="Self.patrimonio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salas">
+              <PropertyRef Name="idSala" />
+              <PropertyRef Name="idPredio" />
+            </Principal>
+            <Dependent Role="patrimonios">
+              <PropertyRef Name="idSala" />
+              <PropertyRef Name="idPredio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Salas_Predios1">
+          <End Role="predios" Type="Self.predio" Multiplicity="1" />
+          <End Role="salas" Type="Self.sala" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="predios">
+              <PropertyRef Name="idPredio" />
+            </Principal>
+            <Dependent Role="salas">
+              <PropertyRef Name="idPredio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="controle_patrimonialEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bens" EntityType="Self.ben" />
+          <EntitySet Name="categorias" EntityType="Self.categoria" />
+          <EntitySet Name="patrimonios" EntityType="Self.patrimonio" />
+          <EntitySet Name="predios" EntityType="Self.predio" />
+          <EntitySet Name="salas" EntityType="Self.sala" />
+          <AssociationSet Name="fk_Bens_Categorias" Association="Self.fk_Bens_Categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="bens" EntitySet="bens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Patrimonios_Bens1" Association="Self.fk_Patrimonios_Bens1">
+            <End Role="bens" EntitySet="bens" />
+            <End Role="patrimonios" EntitySet="patrimonios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Patrimonios_Salas1" Association="Self.fk_Patrimonios_Salas1">
+            <End Role="salas" EntitySet="salas" />
+            <End Role="patrimonios" EntitySet="patrimonios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Salas_Predios1" Association="Self.fk_Salas_Predios1">
+            <End Role="predios" EntitySet="predios" />
+            <End Role="salas" EntitySet="salas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="controle_patrimonialModelStoreContainer" CdmEntityContainer="controle_patrimonialEntities">
+          <EntitySetMapping Name="bens">
+            <EntityTypeMapping TypeName="controle_patrimonialModel.ben">
+              <MappingFragment StoreEntitySet="bens">
+                <ScalarProperty Name="idBem" ColumnName="idBem" />
+                <ScalarProperty Name="descBem" ColumnName="descBem" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categorias">
+            <EntityTypeMapping TypeName="controle_patrimonialModel.categoria">
+              <MappingFragment StoreEntitySet="categorias">
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="descCategoria" ColumnName="descCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patrimonios">
+            <EntityTypeMapping TypeName="controle_patrimonialModel.patrimonio">
+              <MappingFragment StoreEntitySet="patrimonios">
+                <ScalarProperty Name="idPatrimonio" ColumnName="idPatrimonio" />
+                <ScalarProperty Name="numPatrimonio" ColumnName="numPatrimonio" />
+                <ScalarProperty Name="idBem" ColumnName="idBem" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="idSala" ColumnName="idSala" />
+                <ScalarProperty Name="idPredio" ColumnName="idPredio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="predios">
+            <EntityTypeMapping TypeName="controle_patrimonialModel.predio">
+              <MappingFragment StoreEntitySet="predios">
+                <ScalarProperty Name="idPredio" ColumnName="idPredio" />
+                <ScalarProperty Name="descPredio" ColumnName="descPredio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salas">
+            <EntityTypeMapping TypeName="controle_patrimonialModel.sala">
+              <MappingFragment StoreEntitySet="salas">
+                <ScalarProperty Name="idSala" ColumnName="idSala" />
+                <ScalarProperty Name="descSala" ColumnName="descSala" />
+                <ScalarProperty Name="idPredio" ColumnName="idPredio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

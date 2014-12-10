@@ -1,0 +1,26 @@
+﻿@model ControlePatrimonios.predio
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Prédios</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Prédio")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descPredio)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.idPredio }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

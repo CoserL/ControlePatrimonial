@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ControlePatrimonios.sala>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Adicionar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Sala")
+        </th>
+        <th>
+            @Html.Label("Prédio")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.descSala)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.predio.descPredio)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = @item.idSala, idPredio = @item.idPredio }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = @item.idSala, idPredio = @item.idPredio }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = @item.idSala, idPredio = @item.idPredio })
+        </td>
+    </tr>
+}
+
+</table>
